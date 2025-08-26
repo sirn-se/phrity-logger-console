@@ -90,7 +90,7 @@ class ConsoleLogger implements LoggerInterface
             'context' => $this->resolver->transform($context, Type::STRING),
         ]);
         $verbosity = Verbosity::byLogLevel($level);
-        $this->consoleOutput->writeln($message, $verbosity->value);
+        $this->consoleOutput->writeln($message, $verbosity->value());
     }
 
     private function isCli(): bool
@@ -102,7 +102,6 @@ class ConsoleLogger implements LoggerInterface
     {
         $argvInput = new ArgvInput();
         $verbosity = $cliOptions ? match (true) {
-            $argvInput->hasParameterOption(['--silent']) => Verbosity::Silent,
             $argvInput->hasParameterOption(['--quiet', '-q']) => Verbosity::Quiet,
             $argvInput->hasParameterOption(['--debug', '--verbose=3', '-vvv']) => Verbosity::Debug,
             $argvInput->hasParameterOption(['--verbose=2', '-vv']) => Verbosity::VeryVerbose,
@@ -115,7 +114,7 @@ class ConsoleLogger implements LoggerInterface
             },
             default => $verbosity,
         } : $verbosity;
-        $this->consoleOutput->setVerbosity($verbosity->value);
+        $this->consoleOutput->setVerbosity($verbosity->value());
     }
 
     /**

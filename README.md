@@ -28,7 +28,6 @@ $logger = new ConsoleLogger(verbosity: Verbosity::Verbose);
 
 Available levels (default: `Verbosity::Normal`);
 
-* `Verbosity::Silent`
 * `Verbosity::Quiet`
 * `Verbosity::Normal`
 * `Verbosity::Verbose`
@@ -64,7 +63,6 @@ $logger = new ConsoleLogger(cliOptions: true);
 
 Available verbosity argument;
 
-* `--silent`
 * `--quiet` -q
 * `--verbose=1` `-v`
 * `--verbose=2` `-vv`

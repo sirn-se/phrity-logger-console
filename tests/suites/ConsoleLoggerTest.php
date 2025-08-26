@@ -125,23 +125,6 @@ class ConsoleLoggerTest extends TestCase
         $this->assertEquals($expect, $result);
     }
 
-    public function testLogSilentVerbosity(): void
-    {
-        StreamBuffer::start();
-        $logger = new ConsoleLogger(verbosity: Verbosity::Silent, format: '{level}|{message}');
-        $logger->critical('a critical message');
-        $logger->emergency('an emergency message');
-        $logger->alert('an alert message');
-        $logger->error('an error message');
-        $logger->warning('a warning message');
-        $logger->notice('a notice message');
-        $logger->info('an info message');
-        $logger->debug('a debug message');
-
-        $result = StreamBuffer::stop();
-        $this->assertEquals("", $result);
-    }
-
     public function testLogQuietVerbosity(): void
     {
         StreamBuffer::start();
@@ -197,10 +180,10 @@ class ConsoleLoggerTest extends TestCase
             'e' => new StringableObject('stringable'),
             'f' => new InvalidArgumentException('my exception'),
             'g' => new DateTime('2025-08-13'),
-            'h' => Verbosity::Silent,
+            'h' => Verbosity::Quiet,
         ]);
         $result = StreamBuffer::stop();
-        $expect = "a:a string|b:1234|c:true|d:null|e:stringable|f:my exception|g:2025-08-13T00:00:00+00:00|h:Silent\n";
+        $expect = "a:a string|b:1234|c:true|d:null|e:stringable|f:my exception|g:2025-08-13T00:00:00+00:00|h:Quiet\n";
         $this->assertEquals($expect, $result);
     }
 
@@ -228,11 +211,11 @@ class ConsoleLoggerTest extends TestCase
             'e' => new StringableObject('stringable'),
             'f' => new InvalidArgumentException('my exception'),
             'g' => new DateTime('2025-08-13'),
-            'h' => Verbosity::Silent,
+            'h' => Verbosity::Quiet,
         ]);
         $result = StreamBuffer::stop();
         $expect = "Context {a: \"a string\", b: 1234, c: true, d: null, e: stringable, "
-                . "f: my exception, g: 2025-08-13T00:00:00+00:00, h: Silent}\n";
+                . "f: my exception, g: 2025-08-13T00:00:00+00:00, h: Quiet}\n";
         $this->assertEquals($expect, $result);
     }
 
